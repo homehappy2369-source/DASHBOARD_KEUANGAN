@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prototype dashboard keuangan Happy Home">
+  <title>Happy Home | Finance Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Happy Home Dashboard">
+        <span class="brand-mark">HH</span>
+        <span class="brand-copy"><strong>Happy Home</strong><small>Finance Dashboard</small></span>
+      </a>
+      <div class="nav-label">MENU UTAMA</div>
+      <nav class="main-nav">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-link" data-page="cashflow"><span class="nav-icon">↕</span>Cashflow</button>
+        <button class="nav-link" data-page="sales"><span class="nav-icon">▤</span>Omzet & Penjualan</button>
+        <button class="nav-link" data-page="reports"><span class="nav-icon">▥</span>Laporan Keuangan</button>
+        <button class="nav-link" data-page="inventory"><span class="nav-icon">▧</span>Nilai Persediaan</button>
+      </nav>
+      <div class="sidebar-note">
+        <div class="note-icon">✦</div>
+        <strong>Prototype dashboard</strong>
+        <p>Data contoh untuk uji tampilan. Belum terhubung ke database.</p>
+      </div>
+      <div class="sidebar-user">
+        <div class="avatar">HH</div>
+        <div class="user-copy"><strong>Admin Happy Home</strong><small>Preview mode</small></div>
+        <span class="user-menu">•••</span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-title">
+          <button class="mobile-menu" id="mobileMenu" aria-label="Buka menu">☰</button>
+          <div><div class="eyebrow">HAPPY HOME / KEUANGAN</div><h1 id="pageTitle">Dashboard</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <span class="demo-chip"><span></span> MODE DEMO</span>
+          <div class="today-chip"><span class="calendar-icon">▦</span><span id="todayDate">Hari ini</span></div>
+        </div>
+      </header>
+
+      <div class="demo-banner"><span class="banner-icon">ⓘ</span><span><strong>Data simulasi.</strong> Semua angka pada prototype ini hanya contoh dan tidak disimpan ke MySQL.</span></div>
+
+      <section class="page-section active" id="page-dashboard">
+        <div class="section-heading"><div><h2>Ringkasan keuangan</h2><p>Pantau kondisi keuangan Happy Home dalam satu tampilan.</p></div><div class="period-control"><span>Periode</span><select id="dashboardPeriod" aria-label="Periode dashboard"><option value="month">Bulan ini</option><option value="year">Tahun ini</option><option value="all">Semua data demo</option></select></div></div>
+
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-top"><span>Total uang masuk</span><span class="metric-icon green">↓</span></div><div class="metric-value" id="totalIn">Rp 0</div><div class="metric-foot"><span class="foot-dot green-dot"></span>Seluruh penerimaan tercatat</div></article>
+          <article class="metric-card"><div class="metric-top"><span>Total uang keluar</span><span class="metric-icon red">↑</span></div><div class="metric-value" id="totalOut">Rp 0</div><div class="metric-foot"><span class="foot-dot red-dot"></span>Seluruh pengeluaran tercatat</div></article>
+          <article class="metric-card"><div class="metric-top"><span>Saldo rekening</span><span class="metric-icon blue">▤</span></div><div class="metric-value" id="bankBalance">Rp 0</div><div class="metric-foot">Rekening pusat Happy Home</div></article>
+          <article class="metric-card"><div class="metric-top"><span>Saldo tunai</span><span class="metric-icon amber">◉</span></div><div class="metric-value" id="cashBalance">Rp 0</div><div class="metric-foot">Kas fisik yang tersedia</div></article>
+        </div>
+
+        <article class="total-balance-card"><div><div class="balance-label"><span class="balance-pulse"></span>TOTAL SALDO REKENING + TUNAI</div><div class="balance-amount" id="totalBalance">Rp 0</div><p>Saldo rekening pusat ditambah kas tunai kedua toko.</p></div><div class="balance-art"><div class="art-circle circle-one"></div><div class="art-circle circle-two"></div><div class="art-card"><span>HAPPY HOME</span><strong>HH</strong><small>FINANCE</small></div></div></article>
+
+        <div class="dashboard-grid">
+          <article class="panel sales-panel"><div class="panel-heading"><div><h3>Omzet per toko</h3><p>Ringkasan penjualan dan pendapatan ongkir</p></div><button class="text-button" data-goto="sales">Lihat detail <span>→</span></button></div>
+            <div class="store-summary"><div class="store-row"><span class="store-bullet store-one"></span><span class="store-name">Penjualan Toko 1</span><strong id="store1Total">Rp 0</strong></div><div class="store-row"><span class="store-bullet store-two"></span><span class="store-name">Penjualan Toko 2</span><strong id="store2Total">Rp 0</strong></div><div class="store-row"><span class="store-bullet store-shipping"></span><span class="store-name">Pendapatan ongkir</span><strong id="shippingTotal">Rp 0</strong></div></div>
+            <div class="target-block"><div class="target-heading"><div><span>Target omzet bulanan</span><small id="salesTargetCaption">Target Rp 150.000.000</small></div><strong id="salesProgressText">0%</strong></div><div class="progress-track"><span id="salesProgressBar"></span></div><div class="progress-bottom"><span>Realisasi: <strong id="salesRealization">Rp 0</strong></span><span id="salesTargetRemaining">Sisa target Rp 0</span></div></div>
+          </article>
+          <article class="panel inventory-panel"><div class="panel-heading"><div><h3>Nilai persediaan</h3><p>Nilai stok berdasarkan harga pokok</p></div><span class="metric-icon amber">▧</span></div><div class="inventory-big" id="inventoryValue">Rp 0</div><div class="inventory-caption">Total nilai stok tersedia</div><div class="inventory-divider"></div><div class="inventory-mini"><span>Total SKU terdaftar</span><strong id="inventorySkuCount">0 barang</strong></div><button class="button button-outline full-button" data-goto="inventory">Lihat persediaan <span>→</span></button></article>
+        </div>
+
+        <article class="panel"><div class="panel-heading"><div><h3>Transaksi terbaru</h3><p>Aktivitas kas dan rekening terbaru</p></div><button class="text-button" data-goto="cashflow">Semua transaksi <span>→</span></button></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Akun</th><th>Nominal</th></tr></thead><tbody id="recentTransactions"></tbody></table></div></article>
+      </section>
+
+      <section class="page-section" id="page-cashflow">
+        <div class="section-heading"><div><h2>Cashflow</h2><p>Catat uang masuk dan keluar dari rekening pusat atau kas tunai.</p></div><button class="button button-primary" id="showTransactionForm">＋ Tambah transaksi</button></div>
+        <div class="metric-grid three-grid">
+          <article class="metric-card"><div class="metric-top"><span>Total uang masuk</span><span class="metric-icon green">↓</span></div><div class="metric-value" id="cashInPage">Rp 0</div></article>
+          <article class="metric-card"><div class="metric-top"><span>Total uang keluar</span><span class="metric-icon red">↑</span></div><div class="metric-value" id="cashOutPage">Rp 0</div></article>
+          <article class="metric-card"><div class="metric-top"><span>Selisih masuk - keluar</span><span class="metric-icon blue">＝</span></div><div class="metric-value" id="cashNetPage">Rp 0</div></article>
+        </div>
+        <article class="panel form-panel hidden" id="transactionFormPanel"><div class="panel-heading"><div><h3>Tambah transaksi cashflow</h3><p>Data hanya tersimpan sementara selama halaman terbuka.</p></div><button class="icon-button" id="hideTransactionForm" aria-label="Tutup formulir">×</button></div>
+          <form id="transactionForm" class="form-grid">
+            <label>Tanggal<input type="date" id="txDate" required></label>
+            <label>Jenis transaksi<select id="txDirection" required><option value="in">Uang masuk</option><option value="out">Uang keluar</option></select></label>
+            <label>Sumber dana<select id="txAccount" required><option value="bank">Rekening pusat</option><option value="cash">Kas tunai</option></select></label>
+            <label>Kategori<select id="txCategory" required><option>Belanja</option><option>Overhead</option><option>Gaji</option><option>Dapur</option><option>Laba ditahan</option><option>Owner 1</option><option>Owner 2</option><option>Penjualan</option><option>Pendapatan ongkir</option><option>Lainnya</option></select></label>
+            <label class="wide-field">Keterangan<input type="text" id="txDescription" maxlength="120" placeholder="Contoh: Pembelian stok barang" required></label>
+            <label>Nominal (Rp)<input type="number" id="txAmount" min="1" step="1" placeholder="0" required></label>
+            <div class="form-buttons"><button class="button button-primary" type="submit">Simpan transaksi demo</button><button class="button button-outline" type="button" id="cancelTransaction">Batal</button></div>
+          </form>
+        </article>
+        <article class="panel"><div class="panel-heading"><div><h3>Pengelompokan pengeluaran</h3><p>Contoh pengeluaran berdasarkan kategori</p></div></div><div id="expenseBreakdown" class="expense-breakdown"></div></article>
+        <article class="panel"><div class="panel-heading"><div><h3>Riwayat transaksi</h3><p>Transaksi demo, terbaru ditampilkan lebih dahulu</p></div><input class="table-search" type="search" id="transactionSearch" placeholder="Cari transaksi..."></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Jenis</th><th>Akun</th><th>Nominal</th></tr></thead><tbody id="transactionsTable"></tbody></table></div></article>
+      </section>
+
+      <section class="page-section" id="page-sales">
+        <div class="section-heading"><div><h2>Omzet & penjualan</h2><p>Pisahkan laporan penjualan Toko 1 dan Toko 2, dengan satu rekening pusat.</p></div><button class="button button-primary" id="showSalesForm">＋ Tambah penjualan</button></div>
+        <div class="metric-grid three-grid"><article class="metric-card"><div class="metric-top"><span>Penjualan Toko 1</span><span class="metric-icon blue">1</span></div><div class="metric-value" id="salesStore1Page">Rp 0</div></article><article class="metric-card"><div class="metric-top"><span>Penjualan Toko 2</span><span class="metric-icon green">2</span></div><div class="metric-value" id="salesStore2Page">Rp 0</div></article><article class="metric-card"><div class="metric-top"><span>Pendapatan ongkir</span><span class="metric-icon amber">↗</span></div><div class="metric-value" id="salesShippingPage">Rp 0</div></article></div>
+        <article class="panel form-panel hidden" id="salesFormPanel"><div class="panel-heading"><div><h3>Tambah data penjualan</h3><p>Ini mencatat omzet, bukan mutasi rekening otomatis.</p></div><button class="icon-button" id="hideSalesForm" aria-label="Tutup formulir">×</button></div><form id="salesForm" class="form-grid"><label>Tanggal<input type="date" id="saleDate" required></label><label>Toko<select id="saleStore" required><option value="1">Toko 1</option><option value="2">Toko 2</option></select></label><label>Jenis pendapatan<select id="saleType"><option value="sale">Penjualan barang</option><option value="shipping">Pendapatan ongkir</option></select></label><label>Nominal (Rp)<input type="number" id="saleAmount" min="1" step="1" required placeholder="0"></label><label class="wide-field">Keterangan<input type="text" id="saleDescription" maxlength="120" placeholder="Contoh: Rekap penjualan harian" required></label><div class="form-buttons"><button class="button button-primary" type="submit">Simpan penjualan demo</button><button class="button button-outline" type="button" id="cancelSales">Batal</button></div></form></article>
+        <article class="panel"><div class="panel-heading"><div><h3>Target omzet vs realisasi</h3><p>Realisasi penjualan barang dibandingkan target bulanan</p></div><span class="target-badge" id="salesPageProgress">0%</span></div><div class="progress-track progress-large"><span id="salesPageProgressBar"></span></div><div class="target-details"><div><span>Target bulanan</span><strong id="salesPageTarget">Rp 0</strong></div><div><span>Realisasi</span><strong id="salesPageRealization">Rp 0</strong></div><div><span>Sisa target</span><strong id="salesPageRemaining">Rp 0</strong></div></div></article>
+        <article class="panel"><div class="panel-heading"><div><h3>Riwayat penjualan</h3><p>Data penjualan demo</p></div></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Toko</th><th>Jenis</th><th>Keterangan</th><th>Nominal</th></tr></thead><tbody id="salesTable"></tbody></table></div></article>
+      </section>
+
+      <section class="page-section" id="page-reports">
+        <div class="section-heading"><div><h2>Laporan keuangan</h2><p>Ringkasan arus kas, omzet, dan posisi persediaan.</p></div><button class="button button-outline" id="printReport">⎙ Cetak laporan</button></div>
+        <article class="panel"><div class="panel-heading"><div><h3>Filter periode</h3><p>Filter untuk ringkasan cashflow dan penjualan</p></div></div><div class="filter-grid"><label>Dari tanggal<input type="date" id="reportStart"></label><label>Sampai tanggal<input type="date" id="reportEnd"></label><button class="button button-primary" id="applyReportFilter">Terapkan filter</button></div></article>
+        <div class="metric-grid three-grid"><article class="metric-card"><div class="metric-top"><span>Pemasukan periode</span><span class="metric-icon green">↓</span></div><div class="metric-value" id="reportIn">Rp 0</div></article><article class="metric-card"><div class="metric-top"><span>Pengeluaran periode</span><span class="metric-icon red">↑</span></div><div class="metric-value" id="reportOut">Rp 0</div></article><article class="metric-card"><div class="metric-top"><span>Selisih cashflow</span><span class="metric-icon blue">＝</span></div><div class="metric-value" id="reportNet">Rp 0</div></article></div>
+        <article class="panel"><div class="panel-heading"><div><h3>Ringkasan omzet</h3><p>Penjualan Toko 1, Toko 2, dan ongkir</p></div></div><div class="table-wrap"><table><thead><tr><th>Jenis</th><th>Total</th></tr></thead><tbody id="reportSalesTable"></tbody></table></div></article>
+        <div class="report-warning"><strong>Catatan akuntansi</strong><p>Prototype ini belum menghitung laporan laba rugi dan neraca secara akuntansi. Laporan resmi memerlukan HPP, aset, kewajiban, modal, jurnal berpasangan, serta aturan pencatatan laba ditahan dan transaksi pemilik. Modul tersebut perlu dirancang sebelum aplikasi digunakan sebagai sumber laporan resmi.</p></div>
+      </section>
+
+      <section class="page-section" id="page-inventory">
+        <div class="section-heading"><div><h2>Nilai persediaan barang</h2><p>Nilai stok dihitung dari kuantitas dikalikan harga pokok per unit.</p></div><button class="button button-primary" id="showInventoryForm">＋ Tambah barang</button></div>
+        <div class="metric-grid two-grid"><article class="metric-card"><div class="metric-top"><span>Total nilai persediaan</span><span class="metric-icon amber">▧</span></div><div class="metric-value" id="inventoryPageValue">Rp 0</div><div class="metric-foot">Berdasarkan harga pokok</div></article><article class="metric-card"><div class="metric-top"><span>Total SKU</span><span class="metric-icon blue">#</span></div><div class="metric-value" id="inventoryPageCount">0 barang</div><div class="metric-foot">Barang yang terdaftar pada demo</div></article></div>
+        <article class="panel form-panel hidden" id="inventoryFormPanel"><div class="panel-heading"><div><h3>Tambah / perbarui barang</h3><p>SKU yang sama akan memperbarui barang pada data demo.</p></div><button class="icon-button" id="hideInventoryForm" aria-label="Tutup formulir">×</button></div><form id="inventoryForm" class="form-grid"><label>Kode / SKU<input id="itemSku" maxlength="40" required></label><label>Nama barang<input id="itemName" maxlength="100" required></label><label>Jumlah stok<input id="itemQty" type="number" min="0" step="0.01" required value="0"></label><label>Harga pokok per unit (Rp)<input id="itemCost" type="number" min="0" step="0.01" required value="0"></label><div class="form-buttons"><button class="button button-primary" type="submit">Simpan barang demo</button><button class="button button-outline" type="button" id="cancelInventory">Batal</button></div></form></article>
+        <article class="panel"><div class="panel-heading"><div><h3>Daftar persediaan</h3><p>Gunakan harga pokok, bukan harga jual.</p></div><input class="table-search" type="search" id="inventorySearch" placeholder="Cari barang..."></div><div class="table-wrap"><table><thead><tr><th>SKU</th><th>Nama barang</th><th>Jumlah stok</th><th>Harga pokok/unit</th><th>Nilai persediaan</th></tr></thead><tbody id="inventoryTable"></tbody></table></div></article>
+      </section>
+      <footer class="page-footer"><span>© <span id="yearNow"></span> Happy Home Finance</span><span>Prototype UI · HTML / CSS / JavaScript</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
